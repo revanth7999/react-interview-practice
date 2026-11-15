@@ -16,13 +16,14 @@ const components = Object.entries(componentModules).map(([path, Component]) => {
   const fileName = path.split('/').pop()
   const baseName = fileName.replace(/\.jsx$/, '')
   const name = baseName.replace(/([a-z\d])([A-Z])/g, '$1 $2')
-  const problemStatement = componentProblems[baseName]
-    ?? 'Explore this component and try it in the interactive playground.'
+  const metadata = componentProblems[baseName] ?? {}
 
   return {
     id: path,
     name,
-    description: problemStatement,
+    description: metadata.problemStatement
+      ?? 'Explore this component and try it in the interactive playground.',
+    concepts: metadata.concepts ?? [],
     category: 'React · Component',
     status: 'Ready',
     fileName,
@@ -152,7 +153,11 @@ function App() {
             <button className="component-card" key={component.id} onClick={() => setSelectedId(component.id)}>
               <span className="card-topline"><span className="card-number">0{index + 1}</span><span className="ready-status"><i />{component.status}</span></span>
               <span className="card-title">{component.name}<span className="card-arrow">↗</span></span>
-              <span className="card-description">{component.description}</span>
+              <span className="card-description"> <span className="concepts-title" role="heading" aria-level="3">Problem Statement: </span>{component.description}</span>
+              {component.concepts.length > 0 && <span className="concepts-block">
+                <span className="concepts-title" role="heading" aria-level="3">Concepts used</span>
+                <span className="concept-tags">{component.concepts.map((concept) => <span className="concept-tag" key={concept}>{concept}</span>)}</span>
+              </span>}
               <span className="card-bottom"><span className="tag-pill">{component.category}</span><span className="open-link">Explore component <span>→</span></span></span>
             </button>
           ))}
