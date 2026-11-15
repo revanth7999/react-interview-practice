@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import componentProblems from './components/componentProblems.js'
 import './App.css'
 
 const componentModules = import.meta.glob('./components/**/*.jsx', {
@@ -15,47 +16,20 @@ const components = Object.entries(componentModules).map(([path, Component]) => {
   const fileName = path.split('/').pop()
   const baseName = fileName.replace(/\.jsx$/, '')
   const name = baseName.replace(/([a-z\d])([A-Z])/g, '$1 $2')
-  const thumbnail = /todo|task|checklist/i.test(baseName)
-    ? 'todo'
-    : /search|filter/i.test(baseName) ? 'search' : 'generic'
+  const problemStatement = componentProblems[baseName]
+    ?? 'Explore this component and try it in the interactive playground.'
 
   return {
     id: path,
     name,
-    description: `${name} React component. Open the playground to try it out.`,
+    description: problemStatement,
     category: 'React · Component',
     status: 'Ready',
     fileName,
-    thumbnail,
     Component,
     code: componentSources[path],
   }
 })
-
-function ComponentThumbnail({ type }) {
-  if (type === 'todo') {
-    return <span className="card-illustration todo-illustration" aria-hidden="true">
-      <span className="mini-task-input"><span>＋</span> Add a task</span>
-      <span className="mini-task"><i className="checked">✓</i><span className="completed-task">Review React notes</span></span>
-      <span className="mini-task"><i />Build a new component</span>
-    </span>
-  }
-
-  if (type === 'search') {
-    return <span className="card-illustration search-illustration" aria-hidden="true">
-      <span className="mini-search"><i />Search users<span className="mini-shortcut">⌕</span></span>
-      <span className="mini-result"><i />Revanth</span>
-      <span className="mini-result faded"><i />Rahul</span>
-      <span className="mini-orb">⏱</span>
-    </span>
-  }
-
-  return <span className="card-illustration generic-illustration" aria-hidden="true">
-    <span className="generic-window"><i /><i /><i /></span>
-    <span className="generic-symbol">{'{ }'}</span>
-    <span className="generic-lines"><i /><i /><i /></span>
-  </span>
-}
 
 const syntaxPattern = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*|(?:'[^'\\]*(?:\\.[^'\\]*)*'|"[^"\\]*(?:\\.[^"\\]*)*"|`[^`\\]*(?:\\.[^`\\]*)*`)|\b(?:import|from|export|default|function|const|return|if|else|true|false|null|new|this)\b|\b(?:useEffect|useState|setTimeout|clearTimeout)\b|\b\d+\b|\b[A-Z][A-Za-z0-9_]*\b)/g
 
@@ -108,15 +82,15 @@ function App() {
             <span className="brand-mark">&lt;/&gt;</span>
             <span>React<span className="brand-light">Lab</span></span>
           </a>
-          <button className="back-button" onClick={() => setSelectedId(null)}>
-            <span aria-hidden="true">←</span> All components
-          </button>
-          {themeButton}
           <span className="topbar-note"><span className="live-dot" /> Interactive preview</span>
+          {themeButton}
         </header>
 
         <section className="detail-heading">
           <div>
+            <button className="back-button detail-back-button" onClick={() => setSelectedId(null)}>
+              <span aria-hidden="true">←</span> All components
+            </button>
             <p className="eyebrow">COMPONENT PLAYGROUND</p>
             <h1>{selectedComponent.name}</h1>
             <p className="detail-description">{selectedComponent.description}</p>
@@ -152,8 +126,8 @@ function App() {
           <span className="brand-mark">&lt;/&gt;</span>
           <span>React<span className="brand-light">Lab</span></span>
         </a>
-        {themeButton}
         <span className="topbar-note">A collection of frontend patterns</span>
+        {themeButton}
       </header>
 
       <section className="hero-section">
@@ -177,7 +151,6 @@ function App() {
           {components.map((component, index) => (
             <button className="component-card" key={component.id} onClick={() => setSelectedId(component.id)}>
               <span className="card-topline"><span className="card-number">0{index + 1}</span><span className="ready-status"><i />{component.status}</span></span>
-              <ComponentThumbnail type={component.thumbnail} />
               <span className="card-title">{component.name}<span className="card-arrow">↗</span></span>
               <span className="card-description">{component.description}</span>
               <span className="card-bottom"><span className="tag-pill">{component.category}</span><span className="open-link">Explore component <span>→</span></span></span>

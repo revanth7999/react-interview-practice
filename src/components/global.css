@@ -1,0 +1,114 @@
+/* Shared styles for interactive component previews. Add the component-demo
+   class to a preview root to reuse the same surface, typography, and controls. */
+.component-demo {
+  width: min(100%, 360px);
+  padding: 20px;
+  border: 1px solid #e8e9e3;
+  border-radius: 5px;
+  background: #fff;
+  color: #5f6059;
+  font: 11px/1.5 'DM Sans', sans-serif;
+  text-align: left;
+}
+
+.debounce-demo-title {
+  margin: 0 0 4px;
+  color: #34352f;
+  font: 600 15px 'Manrope', sans-serif;
+}
+
+.debounce-demo-caption {
+  margin: 0 0 14px;
+  color: #898a81;
+  font-size: 10px;
+}
+
+.component-demo input {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 0 9px;
+  outline: 0;
+  border: 1px solid #e1e3dc;
+  border-radius: 4px;
+  background: #fff;
+  color: #34352f;
+  font: 11px 'DM Sans', sans-serif;
+}
+
+.component-demo input:focus { border-color: #88a58d; }
+.component-demo input::placeholder { color: #a2a39b; }
+
+.demo-list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-list li {
+  padding: 7px 2px;
+  border-bottom: 1px solid #f0f0eb;
+  color: #5f6059;
+  font-size: 11px;
+}
+
+.demo-list li:last-child { border: 0; }
+.demo-empty { padding: 11px 2px; color: #898a81; font-size: 11px; }
+
+.todo-entry { display: flex; gap: 7px; }
+.todo-entry input { flex: 1; }
+.demo-primary-button {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 11px;
+  border: 1px solid #63836a;
+  border-radius: 4px;
+  background: #63836a;
+  color: #fff;
+  font: 500 10px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+.demo-primary-button:hover { background: #54745b; }
+.todo-section-label {
+  display: flex;
+  justify-content: space-between;
+  margin: 17px 0 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f0f0eb;
+  color: #777970;
+  font: 500 10px 'DM Sans', sans-serif;
+}
+.todo-section-label span { color: #92938b; font: 10px 'DM Mono', monospace; }
+.todo-list-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.todo-item-label { min-width: 0; overflow-wrap: anywhere; }
+.todo-actions { display: flex; flex: 0 0 auto; gap: 4px; }
+.demo-action-button {
+  padding: 3px 5px;
+  border: 1px solid #e7e8e2;
+  border-radius: 3px;
+  background: #fff;
+  color: #68776a;
+  font: 9px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+.demo-action-button:hover { background: #f3f5f1; }
+.demo-action-button.delete-action { color: #a06d68; }
+.todo-empty { margin: 0; }
+
+.theme-dark .component-demo { border-color: #353831; background: #1c1f1b; color: #b0b3a9; }
+.theme-dark .debounce-demo-title { color: #e1e3dc; }
+.theme-dark .debounce-demo-caption,.theme-dark .demo-empty { color: #b0b3a9; }
+.theme-dark .component-demo input { border-color: #393d36; background: #20231f; color: #dbddd6; }
+.theme-dark .component-demo input:focus { border-color: #78977e; }
+.theme-dark .demo-list li { border-color: #30332e; color: #b0b3a9; }
+.theme-dark .demo-primary-button { border-color: #78977e; background: #78977e; color: #172019; }
+.theme-dark .demo-primary-button:hover { background: #8eaa93; }
+.theme-dark .todo-section-label { border-color: #30332e; color: #b0b3a9; }
+.theme-dark .todo-section-label span { color: #92968c; }
+.theme-dark .demo-action-button { border-color: #41463e; background: #22251f; color: #b8c8b9; }
+.theme-dark .demo-action-button:hover { background: #2b3029; }
+.theme-dark .demo-action-button.delete-action { color: #d49b91; }
+
+@media (max-width: 520px) {
+  .component-demo { padding: 16px; }
+}

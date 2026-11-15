@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 Goal:   Build a search input in React that filters a list of users.
         Implement a debounce of 500ms so that the search operation doesn't execute on every keystroke.
 
-Proces: Don't search immediately.
+Process:Don't search immediately.
         Wait for 500ms.
         If the user types another character during that time, reset the timer.
         Execute the search only after the user stops typing for 500ms.
@@ -24,12 +24,12 @@ export default function DebounceSearch() {
      // Debounce logic
     useEffect(() => {
         const timer = setTimeout(() => {
-        setDebouncedSearch(userInput);
+            setDebouncedSearch(userInput);
         }, 500);
 
         // Cleanup previous timer
         return () => {
-        clearTimeout(timer);
+            clearTimeout(timer);
         };
 
     }, [userInput]);
@@ -38,7 +38,7 @@ export default function DebounceSearch() {
         user.toLocaleLowerCase().includes(debouncedSearch.toLocaleLowerCase())
     )
   return (
-    <div className="debounce-demo">
+    <div className="component-demo">
         <h3 className="debounce-demo-title">Find a user</h3>
         <p className="debounce-demo-caption">Results update 500ms after you stop typing.</p>
         <input 
